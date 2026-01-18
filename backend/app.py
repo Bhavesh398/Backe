@@ -53,13 +53,15 @@ logger.info(f"Using device: {device}")
 # ---------------- LOAD IMAGE MODEL ----------------
 image_model = DeepfakeImageModel().to(device)
 
-checkpoint = torch.load(IMAGE_MODEL_PATH, map_location=device)
-if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-    image_model.load_state_dict(checkpoint["model_state_dict"])
+if os.path.exists(IMAGE_MODEL_PATH):
+    checkpoint = torch.load(IMAGE_MODEL_PATH, map_location=device)
+    if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
+        image_model.load_state_dict(checkpoint["model_state_dict"])
+    else:
+        image_model.load_state_dict(checkpoint)
+    image_model.eval()
 else:
-    image_model.load_state_dict(checkpoint)
-
-image_model.eval()
+    logger.warning(f"Image model not found at {IMAGE_MODEL_PATH}. Image inference may not work.")
 
 # ---------------- ROUTES ----------------
 @app.get("/")

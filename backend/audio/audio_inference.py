@@ -6,8 +6,14 @@ from backend.audio.audio_model import AudioDeepfakeModel
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = AudioDeepfakeModel().to(device)
-model.load_state_dict(torch.load("models/audio_deepfake.pth", map_location=device))
-model.eval()
+
+# Load model if it exists, otherwise skip
+model_path = "models/audio_deepfake.pth"
+if os.path.exists(model_path):
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=False))
+    model.eval()
+else:
+    print(f"Warning: Model file {model_path} not found. Audio inference may not work.")
 
 def convert_audio_to_wav(file_path):
     """Convert audio file (MP3, etc.) to WAV format if needed."""

@@ -7,9 +7,13 @@ from backend.video.frame_extractor import extract_frames
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = DeepfakeImageModel()
-model.load_state_dict(torch.load("models/image_deepfake.pth", map_location=device))
-model.to(device)
-model.eval()
+model_path = "models/image_deepfake.pth"
+if os.path.exists(model_path):
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=False))
+    model.to(device)
+    model.eval()
+else:
+    print(f"Warning: Model file {model_path} not found. Video inference may not work.")
 
 def predict_video(video_path):
     frame_dir = "temp_frames"
