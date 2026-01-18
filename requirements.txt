@@ -1,0 +1,20 @@
+# Backend
+fastapi
+uvicorn
+
+# Core ML
+torch
+torchvision
+torchaudio
+
+# Computer Vision
+opencv-python
+pillow
+numpy
+
+# Audio
+librosa
+
+# Utilities
+tqdm
+python-multipart
