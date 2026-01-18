@@ -1,20 +1,12 @@
-# Backend
 fastapi
 uvicorn
-
-# Core ML
-torch
-torchvision
-torchaudio
-
-# Computer Vision
-opencv-python
-pillow
+torch==2.2.2+cpu
+torchvision==0.17.2+cpu
+torchaudio==2.2.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
+opencv-python-headless
 numpy
-
-# Audio
+pillow
 librosa
-
-# Utilities
 tqdm
 python-multipart
