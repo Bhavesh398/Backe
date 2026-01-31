@@ -99,7 +99,7 @@ async def predict(file: UploadFile = File(...)):
 
         if fake_prob > 50:
             verdict = "FAKE"
-        else fake_prob <= (1 - FAKE_THRESHOLD):
+        else:
             verdict = "REAL"
 
         return {
