@@ -97,12 +97,10 @@ async def predict(file: UploadFile = File(...)):
         fake_prob = probs[1].item()
         real_prob = probs[0].item()
 
-        if fake_prob >= FAKE_THRESHOLD:
+        if fake_prob > 50:
             verdict = "FAKE"
-        elif fake_prob <= (1 - FAKE_THRESHOLD):
+        else fake_prob <= (1 - FAKE_THRESHOLD):
             verdict = "REAL"
-        else:
-            verdict = "UNCERTAIN"
 
         return {
             "type": "image",
